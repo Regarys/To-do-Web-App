@@ -1,0 +1,192 @@
+/*  33FF99 hover */
+*{
+    margin: 0;
+    background-color: #050B05;
+    color: #00FF41;
+    text-align:center;
+    font-family: "Courier Prime", monospace;
+}
+
+h1{
+    color: #00FF41;
+    font-size: 3rem;
+    padding: 1rem;
+    font-size: 7rem;
+    padding : 0 0 0 0;
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.content{
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border: solid 1px #00FF41;
+    margin: 0;
+    padding: 20px;
+}
+
+.content button{
+    color: #00FF41;
+    border-color: #0A260A;
+    margin: 10px;
+}
+
+.content input{
+    color: #00FF41;
+    border-color: #0A260A;
+}
+
+.list-container {
+    font-size: 1.5rem;
+    display: flex;
+    flex-direction:column;
+    max-height: 400px;
+    overflow-y: auto;
+    justify-content: left;
+    width: 100%;
+    padding: 20px;
+}
+
+.todo {
+    display: flex;
+}
+
+.todo .seperator{
+    display: flex;
+    padding: 0 10px 0 10px;
+    justify-content: space-between;
+    width: 100%;
+    cursor: pointer;
+}
+
+.todo .seperator span{
+    text-align: left;
+}
+
+.todo .seperator svg{
+    width: 20px;
+}
+
+/* Modal Content */
+.modal{
+    display: none;
+
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, .5);
+
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content{
+    background: black;
+    padding: 20px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #00FF41;
+}
+
+.modal-content input{
+    padding: 8px;
+}
+
+.modal-buttons{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.modal-buttons button{
+    flex: 1;
+    padding: 8px;
+    cursor: pointer;
+    background: #050B05;
+    color: #00FF41;
+    border: 1px solid #00FF41;
+}
+
+.modalEdit{
+    display: none;
+    position: fixed;
+    inset: 0;
+
+    background-color: rgba(0, 0, 0, .5);
+
+    justify-content: center;
+    align-items: center;
+
+}
+
+.edit-content{
+    background: black;
+    padding: 20px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #00FF41;
+}
+
+.edit-content input{
+    padding: 8px;
+}
+
+.modal-buttons{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.modal-buttons button{
+    flex: 1;
+    padding: 8px;
+    cursor: pointer;
+    background: #050B05;
+    color: #00FF41;
+    border: 1px solid #00FF41;
+}
+
+/* Year Page */
+.month-container{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.month-container h3{
+    display: flex;
+    height: 30px;
+    width: 200;
+    font-size: 30px;
+    margin: 10px;
+    color: black;
+    background: #00FF41;
+    height: 5rem;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.month-container h3:hover{
+    background: #33FF99;
+}

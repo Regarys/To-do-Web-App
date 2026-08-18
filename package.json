@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "express": "^5.2.1",
+    "pg": "^8.22.0",
+    "pixelarticons": "^2.2.0"
+  }
+}
