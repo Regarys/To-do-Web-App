@@ -37,21 +37,21 @@ How to install :
   And that's it!
 
 Features
-Create a new to-do
-Update a to-do
-Mark a to-do as completed
-Delete a to-do
-View to-dos by date
-PostgreSQL database integration
-REST API using Express.js
-Tech Stack
-HTML
-CSS
-Vanilla JavaScript
-Node.js
-Express.js
-PostgreSQL
-Notes
+- Create a new to-do
+- Update a to-do
+- Mark a to-do as completed
+- Delete a to-do
+- View to-dos by date
+- PostgreSQL database integration
+- REST API using Express.js
+- Tech Stack
+- HTML
+- CSS
+- Vanilla JavaScript
+- Node.js
+- Express.js
+- PostgreSQL
+- Notes
 
 This project is still a simple personal project, so there may be some bugs or browser compatibility issues.
 
