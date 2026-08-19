@@ -9,10 +9,8 @@
 
 h1{
     color: #00FF41;
-    font-size: 3rem;
-    padding: 1rem;
     font-size: 7rem;
-    padding : 0 0 0 0;
+    padding: 0;
 }
 
 body{
@@ -29,6 +27,21 @@ body{
     justify-content: center;
     align-items: center;
 }
+
+.container button{
+    margin: 20px;
+    width: 300px;
+    height: 30px;
+    border: 1px solid #00FF41;
+}
+
+
+.container button:hover{
+    border: 2px solid #00FF41;
+    background: #3ff291;
+    color: #0A260A;
+}
+
 .content{
     width: 300px;
     display: flex;
@@ -38,12 +51,6 @@ body{
     border: solid 1px #00FF41;
     margin: 0;
     padding: 20px;
-}
-
-.content button{
-    color: #00FF41;
-    border-color: #0A260A;
-    margin: 10px;
 }
 
 .content input{
@@ -124,6 +131,10 @@ body{
     border: 1px solid #00FF41;
 }
 
+.modal-buttons button:nth-child(2):hover{
+    background: red;
+}
+
 .modalEdit{
     display: none;
     position: fixed;
@@ -166,6 +177,55 @@ body{
 }
 
 /* Year Page */
+.year-nav{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 5px;
+}
+
+.year-nav h1{
+    margin: 0;
+    padding: 0;
+    font-size: 7rem;
+}
+
+.year-btn{
+    background: transparent;
+    color: #00FF41;
+    border: 2px solid #00FF41;
+    font-size: 1.5rem;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-family: "Courier Prime", monospace;
+}
+
+.year-btn:hover{
+    background: #00FF41;
+    color: #050B05;
+}
+
+.quick-nav{
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.quick-btn{
+    color: #050B05;
+    background: #00FF41;
+    padding: 8px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.quick-btn:hover{
+    background: #33FF99;
+}
+
 .month-container{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -189,4 +249,168 @@ body{
 
 .month-container h3:hover{
     background: #33FF99;
+}
+
+.panel{
+    display: none;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.panel-content{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40%;
+    height: 100vh;
+    background-color: #00FF41;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+/* Calendar Header */
+.cal-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0 20px 0;
+}
+
+.cal-title{
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #00FF41;
+}
+
+.panel-content h3{
+    margin-top: 3rem;
+    color: #050B05;
+    background: #00FF41;
+}
+
+.cal-nav{
+    background: #050B05;
+    color: #00FF41;
+    border: 2px solid #050B05;
+    font-size: 1.2rem;
+    padding: 6px 14px;
+    cursor: pointer;
+    font-family: "Courier Prime", monospace;
+}
+
+.cal-nav:hover{
+    background: #33FF99;
+    color: #050B05;
+    border-color: #050B05;
+}
+
+/* Calendar Grid */
+.cal-grid{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+}
+
+.cal-grid .cal-dow:nth-child(1){
+color: red;
+}
+
+.cal-dow{
+    font-size: 1rem;
+    font-weight: 700;
+    color: #00FF41;
+    padding: 8px 0;
+    text-transform: uppercase;
+}
+
+.cal-day{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #00FF41;
+    background: transparent;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.cal-day:hover:not(.empty){
+    background: #33FF99;
+    color: #050B05;
+    border-color: #050B05;
+}
+
+.cal-day.empty{
+    cursor: default;
+}
+
+.cal-day.today{
+    background: #050B05;
+    color: #00FF41;
+    border-color: #050B05;
+}
+
+.cal-day.selected{
+    background: #33FF99;
+    color: #050B05;
+    border-color: #050B05;
+}
+
+.cal-day.selected.today{
+    background: #33FF99;
+    color: #050B05;
+}
+
+.cal-quote{
+    margin-top: 2rem;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #00FF41;
+    opacity: 0.7;
+    line-height: 1.5;
+    padding: 0 10px;
+}
+
+#back-btn{
+    color: #00FF41;
+    text-decoration: none;
+    font-size: 1.2rem;
+    align-self: flex-start;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+#back-btn:hover{
+    color: #33FF99;
+}
+
+@media (max-width: 600px) {
+    .month-container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .panel-content{
+        width: 100%;
+    }
+    .cal-title{
+        font-size: 1.3rem;
+    }
+    .year-nav h1{
+        font-size: 4rem;
+    }
+    .year-btn{
+        font-size: 1rem;
+        padding: 6px 10px;
+    }
+    .quick-nav{
+        gap: 8px;
+    }
+    .quick-btn{
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
 }

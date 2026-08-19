@@ -1,7 +1,7 @@
-const data = document.getElementById('data')
+const data = document.getElementById('data');
 const input = document.getElementById('title');
 const addData = document.getElementById('addData');
-const dataDate = document.getElementById('date')
+const pageTitle = document.getElementById('page-title');
 const editTitle = document.getElementById('editTitle');
 let editId = null;
 
@@ -12,21 +12,44 @@ const closeModal = document.getElementById('closeModal');
 const modalEdit = document.getElementById('modalEdit');
 const editBtn = document.getElementById('edit');
 const closeModalEdit = document.getElementById('closeModalEdit');
-
+const backBtn = document.getElementById('back-btn');
 
 let todos = [];
+let selectedDate = '';
 
-const showingData = async() => {
-    try{
-        const response = await fetch("/api/showData");
+function getDateFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const date = params.get('date');
+    if (date) return date;
+    const today = new Date();
+    const y = today.getFullYear();
+    const m = String(today.getMonth() + 1).padStart(2, '0');
+    const d = String(today.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
+}
+
+function formatDateHeading(dateStr) {
+    const [y, m, d] = dateStr.split('-');
+    const date = new Date(y, m - 1, d);
+    const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    return `${parseInt(d)} ${months[parseInt(m) - 1]} ${y}`;
+}
+
+const showingData = async () => {
+    try {
+        const response = await fetch(`/api/todos/date/${selectedDate}`);
         const result = await response.json();
         todos = result;
-        if (result.length === 0) return;
-        console.log(todos);
-        console.log(result[0].created_at);
-        dataDate.innerHTML = new Date(result[0].created_at).toLocaleString("id-ID");
-        
-        data.innerHTML = "";
+
+        data.innerHTML = '';
+
+        if (result.length === 0) {
+            data.innerHTML = '<p style="opacity: 0.5;">No tasks for this day</p>';
+            return;
+        }
 
         result.forEach(todo => {
             data.innerHTML += `
@@ -50,51 +73,58 @@ const showingData = async() => {
                     </div>
                 </div>
             `;
-        })
-    }catch(err){
+        });
+    } catch (err) {
         console.error(err);
     }
-}
+};
 
-document.addEventListener("DOMContentLoaded", () =>{
+document.addEventListener('DOMContentLoaded', () => {
+    selectedDate = getDateFromURL();
+    pageTitle.innerHTML = formatDateHeading(selectedDate);
+
+    const params = new URLSearchParams(window.location.search);
+    const month = params.get('month');
+    const year = params.get('year');
+    if (month !== null && year !== null) {
+        backBtn.href = `index.html?month=${month}&year=${year}`;
+    }
+
     showingData();
 });
 
-addData.addEventListener("click", () => {
-    modal.style.display = "flex";
+addData.addEventListener('click', () => {
+    modal.style.display = 'flex';
 });
 
-saveBtn.addEventListener("click", async () => {
+saveBtn.addEventListener('click', async () => {
     const title = input.value;
     if (!title.trim()) return;
 
-    const response = await fetch("/api/todos", {
-        method: "POST",
+    await fetch('/api/todos', {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({
             title: title
         })
     });
-    const result = await response.json();
-    console.log(result);
-    input.value = "";
-    modal.style.display = "none";
+    input.value = '';
+    modal.style.display = 'none';
     showingData();
 });
 
-
-data.addEventListener("change", async (e) => {
-    if (!e.target.classList.contains("checkbox")) return;
+data.addEventListener('change', async (e) => {
+    if (!e.target.classList.contains('checkbox')) return;
 
     const id = e.target.dataset.id;
     const status = e.target.checked;
 
     await fetch(`/api/todos/${id}`, {
-        method: "PUT",
+        method: 'PUT',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify({ status })
     });
@@ -102,57 +132,59 @@ data.addEventListener("change", async (e) => {
     showingData();
 });
 
-data.addEventListener("click", async(e) => {
-    if (!e.target.classList.contains("delete")) return;
+data.addEventListener('click', async (e) => {
+    if (!e.target.classList.contains('delete')) return;
     const id = e.target.dataset.id;
 
-    await fetch(`/api/todos/${id}`,{
-        method: "DELETE",
-    })
+    await fetch(`/api/todos/${id}`, {
+        method: 'DELETE',
+    });
     showingData();
 });
 
-data.addEventListener("click", async(e) => {
-    if (!e.target.classList.contains("edit")) return;
+data.addEventListener('click', async (e) => {
+    if (!e.target.classList.contains('edit')) return;
     const id = e.target.dataset.id;
-    const title = e.target.dataset.title;
     editId = id;
 
     const todo = todos.find(todo => todo.id == id);
     if (!todo) return;
 
     editTitle.value = todo.title;
-    modalEdit.style.display = "flex";
+    modalEdit.style.display = 'flex';
+});
 
- });
-
-editBtn.addEventListener('click', async(e) => {
+editBtn.addEventListener('click', async () => {
     const id = editId;
     const title = editTitle.value;
-    console.log(id);
-     await fetch(`/api/todos/update/${id}`,{
-        method : "PUT",
-        headers : {
-            "Content-Type" : "application/json"
+
+    await fetch(`/api/todos/update/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
         },
-         body: JSON.stringify({title : title})
-    });       
+        body: JSON.stringify({ title: title })
+    });
     showingData();
-    modalEdit.style.display = "none";
+    modalEdit.style.display = 'none';
 });
 
-
-closeModal.addEventListener("click", () => {
-    modal.style.display = "none";
+closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
 });
 
-closeModalEdit.addEventListener("click", () => {
-    modalEdit.style.display = "none";
+closeModalEdit.addEventListener('click', () => {
+    modalEdit.style.display = 'none';
 });
 
-modal.addEventListener("click", (e) => {
+modal.addEventListener('click', (e) => {
     if (e.target === modal) {
-        modal.style.display = "none";
+        modal.style.display = 'none';
     }
 });
 
+modalEdit.addEventListener('click', (e) => {
+    if (e.target === modalEdit) {
+        modalEdit.style.display = 'none';
+    }
+});

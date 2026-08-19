@@ -42,6 +42,21 @@ app.get("/api/showData", async (req,res) =>{
    }
 });
 
+// Api to Show Data by Date
+app.get("/api/todos/date/:date", async (req, res) => {
+    try {
+        const { date } = req.params;
+        const result = await client.query(
+            "SELECT * FROM to_do_data WHERE DATE(created_at) = $1 ORDER BY created_at",
+            [date]
+        );
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
 // Api to Add To-do
 app.post("/api/todos", async(req, res) => {
     try{

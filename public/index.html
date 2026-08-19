@@ -12,11 +12,23 @@
 
     </head>
     <body>
-       <!-- Otomatic taking current year, and they can choose too javascript should be, but for now design only  -->
-       <h1 id="year">2026</h1>
+       <div class="year-nav">
+           <button class="year-btn" id="year-prev">&#9664;</button>
+           <h1 id="year">2026</h1>
+           <button class="year-btn" id="year-next">&#9654;</button>
+       </div>
+       <div class="quick-nav">
+           <a class="quick-btn" id="btn-yesterday">Yesterday</a>
+           <a class="quick-btn" id="btn-today">Today</a>
+           <a class="quick-btn" id="btn-tomorrow">Tomorrow</a>
+       </div>
        <div class="month-container" id="data-calendar">
         
        </div>
+       <div class="panel" id="panel">
+           <div class="panel-content" id="panel-content">
+           </div>
+     </div>
 
        <script src="calendar.js"></script>
     </body>
